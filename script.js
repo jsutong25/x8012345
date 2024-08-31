@@ -1,4 +1,5 @@
-function setCookie(name, value, days) {
+
+function openJar(name, value, days) {
     let expires = "";
     if (days) {
         const date = new Date();
@@ -8,7 +9,7 @@ function setCookie(name, value, days) {
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
-function getCookie(name) {
+function getJarInside(name) {
     const nameEQ = name + "=";
     const ca = document.cookie.split(';');
     for (let i = 0; i < ca.length; i++) {
@@ -19,20 +20,32 @@ function getCookie(name) {
     return null;
 }
 
-function checkAdmin() {
-    const admin = getCookie("admin");
-    if (admin === "true") {
-        document.getElementById("flag").textContent = "Flag: CTF{admin_access_granted}";
+var hand = chocoChip("61646D696E");
+
+function chocoChip(hex) {
+    let ascii = '';
+    for (let i = 0; i < hex.length; i += 2) {
+        ascii += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+    }
+    return ascii;
+}
+
+function nomnom() {
+    hand = getJarInside("admin");
+    const local38 = "0x430x540x460x7B0x630x6F0x6F0x6B0x690x650x5F0x6D0x6F0x6E0x730x740x650x720x7D";
+    const local37 = "";
+    if (hand === "true") {
+        document.getElementById("text").textContent = local38;
     } else {
-        document.getElementById("flag").textContent = "";
+        document.getElementById("text").textContent = local37;
     }
 }
 
 window.onload = function() {
-    if (!getCookie("admin")) {
-        setCookie("admin", "false", 7);
+    if (!getJarInside(hand)) {
+        openJar(hand, "false", 7);
     }
-    checkAdmin();
+    nomnom();
 };
 
-document.getElementById("input").addEventListener("input", checkAdmin);
+document.getElementById("input").addEventListener("input", nomnom);
